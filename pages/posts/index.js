@@ -28,7 +28,7 @@ export default function Posts({ posts }) {
             return (
               <li key={el.id}>
                 <Link as={`/posts/${el.id}`} href={`/posts/${el.id}`}>
-                  <a> {el.posts}</a>
+                  <a> {el.title}</a>
                 </Link>
               </li>
             );

@@ -23,8 +23,8 @@ export default function singlePost({ data }) {
     <div>
       {postState ? (
         <>
-          <h1>Post Id {postState.id} </h1>
-          <p>{postState.posts}</p>
+          <h1>Post Title: {postState.title} </h1>
+          <p>Post Body: {postState.posts}</p>
         </>
       ) : (
         <div>LOADING</div>

@@ -20,7 +20,7 @@ exports.get_post = function (data, res) {
   });
 };
 exports.get_all_posts = function (data, res) {
-  connection.execute(`SELECT * FROM next_table`, function (err, results) {
+  connection.execute(`SELECT id,title FROM next_table`, function (err, results) {
     if (err) {
       console.log(err);
       res(err, null);
