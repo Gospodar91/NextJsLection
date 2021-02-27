@@ -10,7 +10,6 @@ body {
   line-height: 1;
   overflow-x: hidden;
   background-color: rgba(128, 128, 128, 0.199);
-  margin: 0 auto;
 }
 ul {
   list-style: none;

@@ -4,21 +4,20 @@ import { useRouter } from "next/router";
 export default function singlePost({ data }) {
   const router = useRouter();
   const [postState, setPostState] = useState(data);
-  useEffect(() => {
-    if (!data) {
-      getPostsOnReact(router.query.postId);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!data) {
+  //     getPostsOnReact(router.query.postId);
+  //   }
+  // }, []);
 
-  async function getPostsOnReact(id) {
-    try {
-      const response = await getPost(id);
-
-      setPostState(response.post);
-    } catch (error) {
-      console.log("error", error);
-    }
-  }
+  // async function getPostsOnReact(id) {
+  //   try {
+  //     const response = await getPost(id);
+  //     setPostState(response.post);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // }
   return (
     <div>
       {postState ? (
@@ -27,8 +26,10 @@ export default function singlePost({ data }) {
           <p>Post Body: {postState.posts}</p>
         </>
       ) : (
-        <div>LOADING</div>
+        <div style={{ fontSize: "40px" }}>LOADING</div>
       )}
+
+      {!postState && <div>LOADING</div>}
       <button onClick={(e) => router.push("/posts")}>Go to All posts</button>
     </div>
   );
@@ -36,8 +37,28 @@ export default function singlePost({ data }) {
 singlePost.getInitialProps = async (ctx) => {
   if (!ctx.req) {
     return { data: null };
-  }
+  } //Рендер только 1 раз на сервере
+
+  // if (ctx.query.partner === "privat") {
+  //   // server
+  //   ctx.res.writeHead(302, {
+  //     Location: "/",
+  //   });
+
+  //   ctx.res.end();
+  // }
+
   console.log("ctx query", ctx.query);
   const res = await getPost(ctx.query.postId);
   return { data: res.post };
 };
+
+// export async function getStaticPaths() {
+//   return {
+//    paths: [
+//   { params: { id: '1' } },
+//   { params: { id: '2' } }
+// ],
+
+//   };
+// }

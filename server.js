@@ -19,9 +19,6 @@ app.prepare().then(async () => {
   server.use(express.json()); // for parsing application/json
   server.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded;
 
-  server.get("/test", (req, res) => {
-    res.send(process.env["NEXT_PUBLIC_TEST"]);
-  });
   server.get("/api/get_all_posts", PostController.getAllPosts);
   server.post("/api/get_post", PostController.getPost);
 

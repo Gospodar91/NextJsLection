@@ -15,7 +15,7 @@ exports.get_post = function (data, res) {
     if (results[0]) {
       res(null, { post: results[0], status: "succsess" });
     } else {
-      res(null, { user: null, status: "not found" });
+      res(null, { post: null, status: "not found" });
     }
   });
 };
@@ -28,7 +28,7 @@ exports.get_all_posts = function (data, res) {
     if (results[0]) {
       res(null, { posts: results, status: "succsess" });
     } else {
-      res(null, { user: null, status: "not found" });
+      res(null, { post: null, status: "not found" });
     }
   });
 };

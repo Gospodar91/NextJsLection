@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Posts({ posts }) {
   const [posstState, setPostsState] = useState(posts);
   // useEffect(() => {
-  //   if (posstState) {
+  //   if (!posstState) {
   //     getAllPostsOnReact();
   //   }
   // }, []);
@@ -34,24 +34,36 @@ export default function Posts({ posts }) {
             );
           })}
         </ul>
+        <Link href={"/"}>
+          <a> Go to posts</a>
+        </Link>
       </>
       {/* )} */}
+
+      {!posstState && <div>LOADING</div>}
     </div>
   );
 }
-Posts.getInitialProps = async (ctx) => {
-  console.log("ctx", ctx.pathname);
-  const res = await getAllPosts();
-  console.log("res", res);
 
-  return { posts: res.posts };
-};
-
-// export async function getServerSideProps(context) {
+// Posts.getInitialProps = async (ctx) => {
+//   console.log("ctx", ctx.pathname);
 //   const res = await getAllPosts();
 //   const posts = res.posts;
-//   return {
-//     props: { posts },
-//   };
-// }
-// //вызывается только на сервере и позволяет работать с БД напрямую
+//   return { posts };
+// };
+
+// pathname - Current route. That is the path of the page in /pages
+// query - Query string section of URL parsed as an object
+// asPath - String of the actual path (including the query) shown in the browser
+// req - HTTP request object (server only)
+// res - HTTP response object (server only)
+// err - Error object if any error is encountered during the rendering
+
+export async function getServerSideProps(ctx) {
+  const res = await getAllPosts();
+  const posts = res.posts;
+  return {
+    props: { posts },
+  };
+}
+//вызывается только на сервере и позволяет работать с БД напрямую

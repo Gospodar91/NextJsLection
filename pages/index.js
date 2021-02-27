@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { getAllPosts } from "../apiForExpress/requests";
 import Link from "next/link";
 export default function MainPage({ postData }) {
-  console.log("props", postData);
-  const [posstState, setPostsState] = useState(postData.posts);
+  const [posstState, setPostsState] = useState(postData?.posts);
+  // console.log("posstState", posstState);
   // useEffect(() => {
   //   getAllPostsOnReact();
   // }, []);
@@ -33,18 +33,17 @@ export default function MainPage({ postData }) {
   );
 }
 
-// export async function getStaticProps(ctx) {
-//   const postData = await getAllPosts();
+export async function getStaticProps(ctx) {
+  console.log("ctx", ctx.query);
+  const postData = await getAllPosts();
+  return {
+    props: {
+      postData,
+    },
+  };
+}
 
-//   return {
-//     props: {
-//       postData,
-//     },
-//   };
-// }
-// pathname - Current route. That is the path of the page in /pages
-// query - Query string section of URL parsed as an object
-// asPath - String of the actual path (including the query) shown in the browser
-// req - HTTP request object (server only)
-// res - HTTP response object (server only)
-// err - Error object if any error is encountered during the rendering
+// The data required to render the page is available at build time ahead of a user’s request.
+// The data comes from a headless CMS.
+// The data can be publicly cached (not user-specific).
+// The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
